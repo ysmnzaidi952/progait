@@ -10,15 +10,17 @@ class StaffSeeder extends Seeder
 {
     public function run()
     {
-        Staff::create([
-            'staffID' => 'PG1001',
-            'staffName' => 'Admin User',
-            'staffIC' => '010523101126',
-            'staffEmail' => 'admin@progait.com',
-            'staffPass' => Hash::make('qwerty'),
-            'staffTel' => '0123456789',
-            'staffRole' => 'admin',
-            'status' => 'approved',
-        ]);
+        Staff::firstOrCreate(
+            ['staffID' => 'PG1001'],
+            [
+                'staffName' => 'Admin User',
+                'staffIC' => '010523101126',
+                'staffEmail' => 'admin@progait.com',
+                'staffPass' => Hash::make('qwerty'),
+                'staffTel' => '0123456789',
+                'staffRole' => 'admin',
+                'status' => 'approved',
+            ]
+        );
     }
 }
