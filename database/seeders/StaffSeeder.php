@@ -16,7 +16,7 @@ class StaffSeeder extends Seeder
                 'staffName' => 'Admin User',
                 'staffIC' => '010523101126',
                 'staffEmail' => 'admin@progait.com',
-                'staffPass' => Hash::make('qwerty'),
+                'staffPass' => 'qwerty',
                 'staffTel' => '0123456789',
                 'staffRole' => 'admin',
                 'status' => 'approved',
