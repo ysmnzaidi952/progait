@@ -1,4 +1,3 @@
-C:\laragon\www\progait\config\database.php
 <?php
 
 use Illuminate\Support\Str;
