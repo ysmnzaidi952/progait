@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->trustProxies(at: '*');
         $middleware->redirectUsersTo(function (Request $request) {
             if(Auth::guard("patient")->check()){
                 return route('patient.indexpatient');
