@@ -1,6 +1,8 @@
 FROM php:8.2-apache
 
-RUN apt-get update && apt-get install -y libpq-dev unzip git && docker-php-ext-install pdo pdo_pgsql
+RUN apt-get update && apt-get install -y libpq-dev unzip git curl && docker-php-ext-install pdo pdo_pgsql
+
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs
 
 RUN a2enmod rewrite
 
@@ -12,6 +14,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN composer install --no-dev --optimize-autoloader
 
+RUN npm install && npm run build
+
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
@@ -20,6 +24,6 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 
 EXPOSE 80
 
-COPY start.sh /start.sh 
-RUN chmod +x /start.sh 
-CMD ["/start.sh"] 
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+CMD ["/start.sh"]
